@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -69,9 +70,13 @@ public abstract class SkitBot {
 
     /**
      * Get all commands that should be registered
-     * @return
      */
     public abstract List<ICommand> getCommands();
+
+    /**
+     * Get all events that bot should be listening for.
+     */
+    public abstract List<ListenerAdapter> getEvents();
 
     /**
      * Main method to start the bot.
@@ -95,7 +100,10 @@ public abstract class SkitBot {
         this.commandHandler.registerCommands();
         this.jda.addEventListener(this.commandHandler);
 
-
+        // Register events
+        for (ListenerAdapter adapter : getEvents()) {
+            this.jda.addEventListener(adapter);
+        }
 
 
     }
