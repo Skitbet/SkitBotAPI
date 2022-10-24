@@ -105,8 +105,11 @@ public abstract class SkitBot {
             this.jda.addEventListener(adapter);
         }
 
-
+        this.onEnable();
     }
+
+    protected abstract void onEnable();
+
     public JDA getJda() {
         return jda;
     }
