@@ -98,7 +98,7 @@ public class CommandHandler extends ListenerAdapter {
                                     new EmbedBuilder()
                                             .setColor(Color.RED)
                                             .setDescription("You do not have the permission to run this command!").build()
-                            ).queue();
+                            ).setEphemeral(true).queue();
                             return;
                         }
                     }
